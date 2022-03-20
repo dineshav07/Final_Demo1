@@ -1,10 +1,7 @@
-from unittest.test import test_runner
-
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.firefox.service import Service
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -24,12 +21,13 @@ def setup(request):
     global driver
     browser_name = request.config.getoption("browser_name")
     if browser_name == "chrome":
-
-        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+        s = Service('C:/Users/91720/PycharmProjects/chromedriver.exe')
+        driver = webdriver.Chrome(service=s)
 
 
     elif browser_name == "firefox":
-        driver = webdriver.Firefox(service=Service(GeckoDriverManager().install()))
+        s = Service('C:/Users/91720/PycharmProjects/geckodriver.exe')
+        driver = webdriver.Firefox(service=s)
 
 
     elif browser_name == "headlesschrome":
@@ -48,7 +46,7 @@ def setup(request):
         options.add_argument('--disable-gpu')
         options.add_argument('--disable-dev-shm-usage')
         options.add_argument('--no-sandbox')
-        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+        driver = webdriver.Chrome(executable_path="C:/Users/91720/PycharmProjects/chromedriver.exe", options=options)
 
 
     elif browser_name == "headlessfirefox":
@@ -67,7 +65,7 @@ def setup(request):
         options.add_argument('--disable-gpu')
         options.add_argument('--disable-dev-shm-usage')
         options.add_argument('--no-sandbox')
-        driver = webdriver.Firefox(service=Service(GeckoDriverManager().install()), options=options)
+        driver = webdriver.Chrome(executable_path="C:/Users/91720/PycharmProjects/geckodriver.exe", options=options)
 
     driver.maximize_window()
     driver.get('https://dev-events.konfhub.com')
